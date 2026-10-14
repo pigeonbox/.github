@@ -26,7 +26,7 @@
 - 🚀 **多种交付形态** — Docker / docker-compose、Kubernetes（Helm Chart）、桌面客户端（Tauri 2 托盘常驻）、NAS 应用全家桶：飞牛 fnOS 原生应用（fpk）、OpenWrt/iStoreOS ipk/apk、威联通 QTS 原生应用（QPKG，免 Docker）、群晖 DSM 套件（SPK）、绿联 UGOS Pro / 铁威马 TOS 部署包
 - 📊 **开箱可观测** — Prometheus `/metrics` 默认开启，OpenTelemetry 链路追踪可选
 - 🛡️ **治理内建** — API Token、上传类型/大小/频控、内容审核钩子、管理端站点配置（存库持久化，重启不丢）
-- 🕸️ **P2P 联邦 & 设备直传（可选）** — 多节点联邦互认取件；桌面客户端 p2pc 端到端加密直传；MCP 端点供 AI 客户端管理
+- 🕸️ **P2P 联邦 & 设备直传（可选）** — 每台服务器都是对称 P2P 节点，管理后台「P2P 与联邦」分区热启停；多节点联邦互认取件；p2pc 端到端加密设备直传随 server 镜像/NAS 包/桌面客户端分发；MCP 端点供 AI 客户端管理
 
 ## 🗂 仓库导航
 
@@ -34,7 +34,7 @@
 |------|------|----------|
 | [**pigeonbox**](https://github.com/pigeonbox/pigeonbox) | 🗂️ 装配仓（umbrella）：`make setup` 一键拉齐全部模块，统一构建/测试/部署 | [![tag](https://img.shields.io/github/v/tag/pigeonbox/pigeonbox)](https://github.com/pigeonbox/pigeonbox/tags) |
 | [contracts](https://github.com/pigeonbox/contracts) | 📜 契约层：统一错误码 + Thrift 生成类型，纯类型零业务依赖 | [![tag](https://img.shields.io/github/v/tag/pigeonbox/contracts)](https://github.com/pigeonbox/contracts/tags) |
-| [core](https://github.com/pigeonbox/core) | 🧠 业务核心库：16 个域服务 + OpenDAL 多后端存储抽象 + `Bootstrap()` 库入口 | [![tag](https://img.shields.io/github/v/tag/pigeonbox/core)](https://github.com/pigeonbox/core/tags) |
+| [core](https://github.com/pigeonbox/core) | 🧠 业务核心库：18 个域服务 + OpenDAL 多后端存储抽象 + `Bootstrap()` 库入口 | [![tag](https://img.shields.io/github/v/tag/pigeonbox/core)](https://github.com/pigeonbox/core/tags) |
 | [server](https://github.com/pigeonbox/server) | 🚢 独立部署壳：薄壳入口 + Dockerfile，发布多架构镜像 | [![tag](https://img.shields.io/github/v/tag/pigeonbox/server)](https://github.com/pigeonbox/server/tags) |
 | [frontend](https://github.com/pigeonbox/frontend) | 🎨 前端壳：neutral 产物 + nginx 分离镜像（平台宿主适配器归各平台仓 `web/`） | 随 server 同 `v*` |
 | [frontend-core](https://github.com/pigeonbox/frontend-core) | 🖌️ 公共前端 core：平台无关应用（Vue3 + TS + Vite + Element Plus）+ 宿主适配器 SPI，Release tgz 消费 | [![tag](https://img.shields.io/github/v/tag/pigeonbox/frontend-core)](https://github.com/pigeonbox/frontend-core/tags) |
