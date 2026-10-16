@@ -26,7 +26,8 @@
 - 🚀 **多种交付形态** — Docker / docker-compose、Kubernetes（Helm Chart）、桌面客户端（Tauri 2 托盘常驻）、NAS 应用全家桶：飞牛 fnOS 原生应用（fpk）、OpenWrt/iStoreOS ipk/apk、威联通 QTS 原生应用（QPKG，免 Docker）、群晖 DSM 套件（SPK）、绿联 UGOS Pro / 铁威马 TOS 部署包
 - 📊 **开箱可观测** — Prometheus `/metrics` 默认开启，OpenTelemetry 链路追踪可选
 - 🛡️ **治理内建** — API Token、上传类型/大小/频控、内容审核钩子、管理端站点配置（存库持久化，重启不丢）
-- 🕸️ **P2P 联邦 & 设备直传（可选）** — 每台服务器都是对称 P2P 节点，管理后台「P2P 与联邦」分区热启停；多节点联邦互认取件；p2pc 端到端加密设备直传随 server 镜像/NAS 包/桌面客户端分发；MCP 端点供 AI 客户端管理
+- 🕸️ **P2P 联邦（可选）** — 每台服务器都是对称 P2P 节点，管理后台「P2P 与联邦」分区热启停；多节点联邦互认取件、跨实例推送邀请；MCP 端点供 AI 客户端管理
+- 🕊️ **PigeonBeam 设备直传（姊妹应用）** — 独立的端到端直传应用（口令即身份、无需账号、NAT 打洞+加密中继），可「投递到柜」把收到的文件转存为快递柜分享
 
 ## 🗂 仓库导航
 
@@ -45,7 +46,7 @@
 | [qnap](https://github.com/pigeonbox/qnap) | 📦 威联通 QTS 原生应用（QPKG）：x86_64/arm_64 单进程免 Docker，QTS 账号 SSO 免登录 | [![tag](https://img.shields.io/github/v/tag/pigeonbox/qnap)](https://github.com/pigeonbox/qnap/tags) |
 | [ugreen](https://github.com/pigeonbox/ugreen) | 📦 绿联 UGOS Pro 部署包：Docker 项目一键粘贴，含国内加速编排 | [![tag](https://img.shields.io/github/v/tag/pigeonbox/ugreen)](https://github.com/pigeonbox/ugreen/tags) |
 | [terramaster](https://github.com/pigeonbox/terramaster) | 📦 铁威马 TOS 5/6/7 部署包：Docker Manager 项目导入 | [![tag](https://img.shields.io/github/v/tag/pigeonbox/terramaster)](https://github.com/pigeonbox/terramaster/tags) |
-| [p2p](https://github.com/pigeonbox/p2p) | 🕸️ P2P 联邦注册中心 + 设备直传：租约注册、口令联邦路由、WS 信令、加密中继、p2pc CLI/网页客户端 | [![tag](https://img.shields.io/github/v/tag/pigeonbox/p2p)](https://github.com/pigeonbox/p2p/tags) |
+| [p2p](https://github.com/pigeonbox/p2p) | 🕊️ **PigeonBeam 信鸽直传**（独立应用）：p2pc CLI + 网页客户端，端到端直传 +「投递到柜」桥；兼 PigeonBox 联邦注册中心 p2pd | [![tag](https://img.shields.io/github/v/tag/pigeonbox/p2p)](https://github.com/pigeonbox/p2p/tags) |
 | [kit](https://github.com/pigeonbox/kit) | 🧰 共享 Go 工具库：28 个零生态依赖通用包（retry/syncx/shutdown/workflow 等） | [![tag](https://img.shields.io/github/v/tag/pigeonbox/kit)](https://github.com/pigeonbox/kit/tags) |
 | [charts](https://github.com/pigeonbox/charts) | ☸️ Kubernetes Helm Chart：Pages + OCI 双发布 | [![tag](https://img.shields.io/github/v/tag/pigeonbox/charts)](https://github.com/pigeonbox/charts/tags) |
 
@@ -108,11 +109,21 @@ helm install pigeonbox pigeonbox/pigeonbox -n pigeonbox --create-namespace
 
 > 默认管理员 `admin / admin123`，生产环境务必用 `PB_ADMIN_PASSWORD` 覆盖（生产模式下未注入将拒绝创建默认管理员）。
 
+**🕊️ PigeonBeam 设备直传（独立应用，两台设备端到端互传）**
+
+```bash
+# 发送方(自动生成口令) —— 六平台二进制见 p2p 仓 Releases
+p2pc send 报告.pdf --registry http://home.enjoye.top:56788
+# 接收方(输入同一口令,直连下载;或跑 p2pc-web 用浏览器)
+p2pc recv XXXX-XXXX-XXXX --registry http://home.enjoye.top:56788
+```
+
 ## 📦 制品出口
 
 | 制品 | 位置 |
 |------|------|
 | 🐋 容器镜像（多架构） | `ghcr.io/pigeonbox/server` · `ghcr.io/pigeonbox/frontend` · `ghcr.io/pigeonbox/p2p`（`ghcr.io/pigeonbox/fnos` 已停发，冻结在 v1.14.6） |
+| 🕊️ PigeonBeam 直传客户端（p2pc / p2pc-web，六平台） | [p2p 仓 Releases](https://github.com/pigeonbox/p2p/releases)（文件名含目标平台 triple，附 sha256） |
 | 📥 桌面安装包 / NAS 应用包（fpk·ipk/apk·SPK·QPKG·部署包） | 统一回挂 [hub Releases](https://github.com/pigeonbox/pigeonbox/releases) |
 | ☸️ Helm Chart | [Pages 仓库](https://pigeonbox.github.io/charts/) + `oci://ghcr.io/pigeonbox/charts/pigeonbox` |
 
