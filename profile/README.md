@@ -89,8 +89,10 @@ docker compose up -d                  # API :12345 · 前端 :80（加反代：-
 docker run -d --name pigeonbox -p 12345:12345 \
   -e PB_ADMIN_PASSWORD=change-me \
   -e PB_JWT_SECRET=$(openssl rand -hex 32) \
-  ghcr.io/pigeonbox/server:latest
+  ghcr.io/pigeonbox/server:5.8.0
 ```
+
+> 镜像 tag `5.8.0` 与当前 [Latest Release](https://github.com/pigeonbox/pigeonbox/releases/latest) 对齐；**正式部署请钉 Release 版本 tag**——`latest` 是可变标签，不保证升级兼容，不应作为生产钉版（拉取前请到 Releases 确认最新号）。
 
 **Kubernetes（Helm）**
 
